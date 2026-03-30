@@ -1,4 +1,12 @@
 services:
+  dashboard:
+    image: nginx:alpine
+    container_name: dashboard
+    ports:
+      - "80:80"
+    volumes:
+      - ./dashboard:/usr/share/nginx/html:ro
+    restart: unless-stopped
 
   jellyfin:
     image: jellyfin/jellyfin:latest
