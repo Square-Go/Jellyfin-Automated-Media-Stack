@@ -84,24 +84,24 @@ You -> Seerr -> Radarr/Sonarr -> Prowlarr -> qBittorrent -> Bazarr -> Jellyfin
 
 ---
 
-## Internal Container URLs
+## Internal Service URLs
 
-When configuring services to talk to each other, always use container names:
+All containers run in host networking mode, so use `localhost` when configuring services to talk to each other:
 
 | Connection | URL |
 |---|---|
-| Prowlarr -> Radarr | `http://radarr:7878` |
-| Prowlarr -> Sonarr | `http://sonarr:8989` |
-| Prowlarr -> FlareSolverr | `http://flaresolverr:8191` |
-| Seerr -> Jellyfin | `http://jellyfin:8096` |
-| Seerr -> Radarr | `http://radarr:7878` |
-| Seerr -> Sonarr | `http://sonarr:8989` |
-| Radarr -> qBittorrent | `http://qbittorrent:8080` |
-| Sonarr -> qBittorrent | `http://qbittorrent:8080` |
-| Bazarr -> Radarr | `http://radarr:7878` |
-| Bazarr -> Sonarr | `http://sonarr:8989` |
+| Prowlarr -> Radarr | `http://localhost:7878` |
+| Prowlarr -> Sonarr | `http://localhost:8989` |
+| Prowlarr -> FlareSolverr | `http://localhost:8191` |
+| Seerr -> Jellyfin | `http://localhost:8096` |
+| Seerr -> Radarr | `http://localhost:7878` |
+| Seerr -> Sonarr | `http://localhost:8989` |
+| Radarr -> qBittorrent | `http://localhost:8080` |
+| Sonarr -> qBittorrent | `http://localhost:8080` |
+| Bazarr -> Radarr | `http://localhost:7878` |
+| Bazarr -> Sonarr | `http://localhost:8989` |
 
-Use your actual server IP only when accessing from your browser.
+Use your actual server IP or Tailscale hostname when accessing from your browser.
 
 ---
 
@@ -130,9 +130,6 @@ docker ps
 
 # Get qBittorrent temp password
 docker logs qbittorrent | grep password
-
-# Check container network
-docker network inspect media-stack_medianet
 ```
 
 ---
@@ -141,10 +138,9 @@ docker network inspect media-stack_medianet
 
 | Problem | Fix |
 |---|---|
-| Indexer test times out | DNS blocking — `dns: 8.8.8.8` in compose fixes this |
+| Indexer test times out | Check DNS resolution on the host |
 | Indexer blocked by Cloudflare | Add `flaresolverr` tag to that indexer in Prowlarr |
-| Containers can't reach each other | All must be on `medianet` network |
-| Seerr 404 sign in error | Use container name `jellyfin` not IP, port in its own field |
+| Seerr 404 sign in error | Use `localhost` not container name, port in its own field |
 | Seerr permission denied / restart loop | `sudo chown -R 1000:1000 ~/media-stack/seerr` then restart |
 | Radarr shows movies as missing (red) | Normal — check indexers synced and qBittorrent connected |
 | Radarr can't import downloaded file | Ensure `/downloads` is mounted in Radarr volumes |
