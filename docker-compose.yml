@@ -18,7 +18,7 @@ services:
     volumes:
       - ./jellyfin/config:/config
       - ./jellyfin/cache:/cache
-      - /mnt/ssd/jellyfin:/data
+      - /mnt/ssd/jellyfin/media:/media
     restart: unless-stopped
 
   prowlarr:
