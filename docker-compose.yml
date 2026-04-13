@@ -18,7 +18,7 @@ services:
     volumes:
       - ./jellyfin/config:/config
       - ./jellyfin/cache:/cache
-      - /mnt/ssd/jellyfin/media:/media
+      - /mnt/ssd/jellyfin:/data
     restart: unless-stopped
 
   prowlarr:
@@ -44,7 +44,6 @@ services:
     volumes:
       - ./radarr:/config
       - /mnt/ssd/jellyfin/media:/media
-      - /mnt/ssd/jellyfin/media/downloads:/downloads
     restart: unless-stopped
 
   sonarr:
@@ -58,7 +57,6 @@ services:
     volumes:
       - ./sonarr:/config
       - /mnt/ssd/jellyfin/media:/media
-      - /mnt/ssd/jellyfin/media/downloads:/downloads
     restart: unless-stopped
 
   qbittorrent:
