@@ -92,7 +92,7 @@ docker logs qbittorrent | grep password
 ```
 2. Login with username `admin` and temp password
 3. Tools -> Options -> WebUI -> change password to something secure
-4. Tools -> Options -> Downloads -> set Default Save Path to `/downloads`
+4. Tools -> Options -> Downloads -> set Default Save Path to `/media/downloads`
 5. Save
 
 ---
