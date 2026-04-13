@@ -70,7 +70,7 @@ services:
       - WEBUI_PORT=8080
     volumes:
       - ./qbittorrent:/config
-      - /mnt/ssd/jellyfin/media/downloads:/downloads
+      - /mnt/ssd/jellyfin/media/downloads:/media/downloads
     restart: unless-stopped
 
   bazarr:
