@@ -105,10 +105,12 @@ services:
       - TZ=Europe/London
     restart: unless-stopped
 
+  ## NOTE: This is hardcoded to use 8080, the same as qbittorrent. So it doesn't operate in network mode host. As it requires a port mapping. 
   sabnzbd:
     image: lscr.io/linuxserver/sabnzbd:latest
     container_name: sabnzbd
-    network_mode: host
+    ports:
+      - 8090:8080
     environment:
       - PUID=1000
       - PGID=1000
